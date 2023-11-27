@@ -6,7 +6,8 @@
     <title>Game Zip</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="1.js">
-    <style>
+<!---->
+       <style>
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #f4f4f4;
@@ -24,6 +25,7 @@
         .section {
             padding: 40px 0;
         }
+        
         .section1,
         .section2 {
             max-width: 800px;
@@ -34,6 +36,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 40px;
         }
+           
         .section2 {
             margin-bottom: 100px;
         }
@@ -44,6 +47,7 @@
             border-radius: 8px;
             margin-bottom: 20px;
         }
+        
         ul {
             list-style: none;
             padding: 0;
@@ -61,6 +65,7 @@
             color: #fff;
             width: 100%;
         }
+    
         .hidden-button {
             display: none;
             font-weight: bolder;
@@ -68,17 +73,21 @@
             margin-bottom: 55px;
             margin-left: 125px;
             margin-top: -23%;
+            border: 5px solid black;
+            width: 295px;
+            color: black;
         }
+        
         .toggle {
             background-color: #333;
             color: white;
             font-weight: bold;
             border: none; 
         }
+        
         .logo-beta {
             display: inline-block;
             padding: 1px 3px;
-            
             margin-left: -20px;
             margin-top: -70px;
             font-size: 25px;
@@ -87,6 +96,7 @@
             line-height: 12px;
             vertical-align: middle;
         }
+        
         .display {
             margin-left: 75px;
             margin-right: auto;
@@ -94,6 +104,7 @@
         }
     </style>
 </head>
+<!---->
 <body>
 
     <header>
@@ -101,50 +112,55 @@
             <span class="display">Game Zip</span>
             <small class="logo-beta">BETA</small>
         </h1>
+        
         <p class="lead">최신 게임 소식과 인기 게임을 만나보세요.</p>
-    </header>
-
+        
+        <nav>
+            <a href="카테고리1"></a>
+            <a href="카테고리2"></a>
+            <a href="카테고리3"></a>
+        </nav>
+    </header>    
+<!---->
     <section class="section1">
-        <h2 class="display-4">테트리스</h2>
+        <h2 class="display-4">TestG1</h2>
         <p class="lead">인기를 끌고 있는 최신 게임에 대한 소개입니다.</p>
         <img src="game_image.jpg" alt="게임 이미지">
     </section>
 
     <section class="section1">
-        <h2 class="display-4">블록 부수기</h2>
+        <h2 class="display-4">TestG2</h2>
         <p class="lead">인기를 끌고 있는 최신 게임에 대한 소개입니다.</p>
         <img src="game_image.jpg" alt="게임 이미지">
     </section>
     
     <section class="section2">
-        <h2 class="display-4">블록 부수기</h2>
+        <h2 class="display-4">TestG3</h2>
         <p class="lead">인기를 끌고 있는 최신 게임에 대한 소개입니다.</p>
         <img src="game_image.jpg" alt="게임 이미지">
     </section>
-    
-
-    <button class="hidden-button" id="targetButton">Hidden Game</button>
-    
+    <a class="hidden-button" id="targetButton" href="HexGL-master/index.html">Hidden Button</a>
+    <!--<button class="hidden-button" id="targetButton">Hidden Game</button>-->
     
     <footer>
-        <button class="toggle" onclick="toggleButton()">🇹🇲 김민수, 김준우, 박세진</button>
+           <button class="toggle" onclick="toggleButton()">🇹🇲 김민수, 김준우, 박세진</button>
     </footer>
-
+<!---->
     <script>
         function toggleButton() {
             var targetButton = document.getElementById('targetButton');
             
-            if (targetButton.style.display === 'none'|| targetButton.style.display === '') {
+            if (targetButton.style.display === 'none'|| 
+                targetButton.style.display === '') {
                 targetButton.style.display = 'block';
             } else {
                 targetButton.style.display = 'none';
             }
         }
     </script>
-    
+<!---->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 </body>
 </html>
