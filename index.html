@@ -343,6 +343,107 @@
 
         startWave();
         gameInterval = setInterval(updateGame, 1000 / 60); // Update game every frame
+
+        // Update enemy color and movement towards the tower
+function updateGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    displayGameInfo();
+
+    const towerX = 50;
+    const towerY = canvas.height / 2;
+    ctx.fillStyle = "blue";
+    ctx.fillRect(towerX, towerY - 25, 50, 50);
+
+    // Draw turrets
+    turrets.forEach((turret) => {
+        ctx.fillStyle = turret.color;
+        ctx.fillRect(turret.x - 25, turret.y - 25, 50, 50); // Draw turret
+        ctx.strokeStyle = "rgba(0,255,0,0.5)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(turret.x, turret.y, 150, 0, Math.PI * 2); // Draw range circle
+        ctx.stroke();
+
+        // Bullet creation and attack logic (basic range-based)
+        turret.bullets.forEach((bullet, index) => {
+            bullet.x += bullet.speedX;
+            bullet.y += bullet.speedY;
+
+            ctx.fillStyle = "yellow";
+            ctx.fillRect(bullet.x, bullet.y, 5, 5);
+
+            // Remove bullet if it goes off-screen
+            if (bullet.x < 0 || bullet.y < 0 || bullet.x > canvas.width || bullet.y > canvas.height) {
+                turret.bullets.splice(index, 1);
+            }
+
+            // Check if bullet hits any enemies
+            enemies.forEach((enemy, enemyIndex) => {
+                if (
+                    bullet.x < enemy.x + enemy.size &&
+                    bullet.x + 5 > enemy.x &&
+                    bullet.y < enemy.y + enemy.size &&
+                    bullet.y + 5 > enemy.y
+                ) {
+                    enemy.health -= bullet.damage;
+                    turret.bullets.splice(index, 1); // Destroy bullet
+                    if (enemy.health <= 0) {
+                        score += 10;
+                        money += enemy.reward;
+                        enemies.splice(enemyIndex, 1);
+                    }
+                }
+            });
+        });
+
+        // Attack enemies in range
+        if (turret.lastAttackTime + turret.attackSpeed < Date.now()) {
+            // Attack logic here (shoot bullets)
+            const targetEnemy = enemies.find(enemy => Math.hypot(enemy.x - turret.x, enemy.y - turret.y) < 150);
+            if (targetEnemy) {
+                turret.bullets.push(createBullet(turret.x, turret.y, targetEnemy.x, targetEnemy.y));
+                turret.lastAttackTime = Date.now();
+            }
+        }
+    });
+
+    // Update enemies to move towards the tower
+    enemies.forEach((enemy, index) => {
+        // Calculate direction towards tower
+        const dx = towerX - enemy.x;
+        const dy = towerY - enemy.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const speed = enemy.speed;
+
+        // Normalize direction and move enemy
+        const speedX = (dx / distance) * speed;
+        const speedY = (dy / distance) * speed;
+        enemy.x += speedX;
+        enemy.y += speedY;
+
+        // Draw enemy as red
+        ctx.fillStyle = "red";  // Always red for enemies
+        ctx.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
+
+        // Health bar for enemies
+        const healthPercentage = enemy.health / (enemy.isBoss ? enemy.health : 10);
+        ctx.fillStyle = "red";
+        ctx.fillRect(enemy.x, enemy.y - 10, enemy.size, 5); // Background bar
+        ctx.fillStyle = "green";
+        ctx.fillRect(enemy.x, enemy.y - 10, enemy.size * healthPercentage, 5); // Health bar
+
+        if (enemy.x < towerX + 50 && enemy.x + enemy.size > towerX) {
+            towerHealth -= 10;
+            if (towerHealth <= 0) {
+                endGame();
+            }
+        }
+    });
+
+    // Remove dead enemies
+    enemies = enemies.filter(enemy => enemy.health > 0);
+}
+
     </script>
 </body>
 </html>
