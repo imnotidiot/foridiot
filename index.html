@@ -267,9 +267,9 @@
                     });
                 });
 
-                // Attack logic
+                // 공격 함수
                 if (Date.now() - turret.lastAttackTime > turret.attackSpeed) {
-                    // Find nearest enemy to shoot
+                    // 몹 찾기
                     let target = findClosestEnemy(turret);
                     if (target) {
                         turret.bullets.push(createBullet(turret.x, turret.y, target.x, target.y));
@@ -278,7 +278,7 @@
                 }
             });
 
-            // Move and draw enemies
+            // 몹 생성
             enemies.forEach((enemy) => {
                 const dx = enemy.targetX - enemy.x;
                 const dy = enemy.targetY - enemy.y;
@@ -297,7 +297,7 @@
                 drawHPBar(enemy.x, enemy.y, enemy.health, enemy.isBoss ? 50 : 10);
             });
 
-            // Remove enemies that reach the tower
+            // 몹이 타워에 닿았을 시에 몹 삭제
             enemies = enemies.filter((enemy) => {
                 if (enemy.x < tower.x + tower.size / 2 && enemy.y > tower.y - tower.size / 2 && enemy.y < tower.y + tower.size / 2) {
                     towerHealth -= enemy.health;
@@ -306,13 +306,13 @@
                 return true;
             });
 
-            // Game Over if tower health reaches 0
+            // 게임 오버(타워체력 == 0)
             if (towerHealth <= 0) {
                 clearInterval(gameInterval);
                 showMessage("Game Over!");
             }
 
-            // Handle wave progression
+            // 웨이브 방식
             if (enemies.length === 0) {
                 startWave();
             }
@@ -322,9 +322,9 @@
             const barWidth = 50;
             const barHeight = 5;
             ctx.fillStyle = "black";
-            ctx.fillRect(x - barWidth / 2, y + 30, barWidth, barHeight); // Background
+            ctx.fillRect(x - barWidth / 2, y + 30, barWidth, barHeight); // 배경
             ctx.fillStyle = currentHP > 0 ? "green" : "red";
-            ctx.fillRect(x - barWidth / 2, y + 30, (currentHP / maxHP) * barWidth, barHeight); // Health bar
+            ctx.fillRect(x - barWidth / 2, y + 30, (currentHP / maxHP) * barWidth, barHeight); // 체력 바
         }
 
         function findClosestEnemy(turret) {
@@ -369,11 +369,12 @@
                 placingTurret = type;
                 updateMenuUI();
             }
+            closeMenu();
         }
-
+        
         function upgradeTower() {
             if (money >= upgradeCost.tower) {
-                towerHealth = Math.min(towerHealth + 25, 100); // Cap tower health to 100
+                towerHealth = Math.min(towerHealth + 25, 100); //타워 체력 100
                 money -= upgradeCost.tower;
                 showMessage("Tower Upgraded!");
             }
@@ -388,8 +389,9 @@
             laserTurretButton.disabled = money < turretCost.laser || turrets.length >= turretLimit;
             upgradeButton.disabled = money < upgradeCost.tower || towerHealth >= 100;
         }
-
-        gameInterval = setInterval(updateGame, 1000 / 60); // 60 FPS
+        // 배속 구현
+        gameInterval = setInterval(updateGame, 1000 / 60);
+         
     </script>
 </body>
 </html>
