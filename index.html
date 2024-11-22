@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,12 +66,25 @@
             font-size: 16px;
             display: none;
         }
+        #speedButton {
+            position: fixed;
+            bottom: 20px; 
+            right: 20px;  
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
 
     <canvas id="gameCanvas"></canvas>
     <button id="menuButton" onclick="toggleMenu()">Menu</button>
+    <button id="speedButton" onclick="toggleSpeed()">2배속</button>
     <div id="menuUI">
         <h2>Upgrade & Shop</h2>
         <button id="basicTurret" class="button" onclick="buyTurret('basic')">Buy Basic Turret (500)</button>
@@ -389,7 +403,21 @@
             laserTurretButton.disabled = money < turretCost.laser || turrets.length >= turretLimit;
             upgradeButton.disabled = money < upgradeCost.tower || towerHealth >= 100;
         }
-        // 배속 구현
+        let isDoubleSpeed = false; // 현재 2배속 상태 여부
+        let normalFPS = 1000 / 60;
+        let doubleFPS = 1000 / 1000; // 1 FPS당 빠르게 실행
+        let currentFPS = normalFPS;
+
+        // 2배속 토글 함수
+        function toggleSpeed() {
+            isDoubleSpeed = !isDoubleSpeed; // 토글 상태 변경
+            clearInterval(gameInterval); // 기존 Interval 삭제
+            currentFPS = isDoubleSpeed ? doubleFPS : normalFPS; // 현재 속도 업데이트
+            gameInterval = setInterval(updateGame, currentFPS); // 새로운 Interval 생성
+            const speedButton = document.getElementById("speedButton");
+            speedButton.innerText = isDoubleSpeed ? "정상 속도" : "2배속"; // 버튼 텍스트 변경
+        }
+
         gameInterval = setInterval(updateGame, 1000 / 60);
          
     </script>
