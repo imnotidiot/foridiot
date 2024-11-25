@@ -1,0 +1,71 @@
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #121212; 
+            color: #ffffff; 
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .game-title {
+            font-size: 3em;
+            text-align: center;
+            text-shadow: 0px 0px 10px #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+        }
+        .start-game-container {
+            text-align: center;
+        }
+        .difficulty-container {
+            display: none; 
+            text-align: center;
+        }
+        .difficulty-button {
+            background-color: #333333;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            margin: 10px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgb(255, 255, 255);
+            transition: all 0.3s ease;
+        }
+        .difficulty-button:hover {
+            background-color: #ffffff;
+            color: #121212;
+            transform: scale(1.1);
+            box-shadow: 0px 0px 15px rgba(255, 255, 255);
+        }
+        .start-button {
+            background-color: #333333;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgb(255, 255, 255);
+            transition: all 0.3s ease;
+        }
+
+        .start-button:hover {
+            background-color: #ffffff;
+            color: #121212;
+            transform: scale(1.1);
+            box-shadow: 0px 0px 15px rgb(255, 255, 255);
+        }
+
+        @keyframes pixel-flash {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .game-title {
+            animation: pixel-flash 1s infinite alternate;
+        }
