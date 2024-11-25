@@ -15,5 +15,5 @@ difficultyButtons.forEach(button => {
 });
 
 function startGame(difficulty) {
-    console.log(`Selected Difficulty: ${difficulty}`);
+    alert(`Selected Difficulty: ${difficulty}`);
     window.location.href = "2.html";
