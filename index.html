@@ -19,23 +19,12 @@
             <button class="difficulty-button" onclick="startGame('hard')">Hard</button>
         </div>
     </div>
+<script>
+    const startButton = document.getElementById('startButton');
+    const difficultyMenu = document.getElementById('difficultyMenu');
+    const difficultyButtons = document.querySelectorAll('.difficulty-button');
 
-    <script>
-        function showDifficulty() {
-            document.querySelector('.start-game-container').style.display = 'none';
-            document.querySelector('#difficulty-container').style.display = 'block';
-        }
-
-        function startGame(difficulty) {
-
-        }
-    </script>
-    <script>
-        const startButton = document.getElementById('startButton');
-const difficultyMenu = document.getElementById('difficultyMenu');
-const difficultyButtons = document.querySelectorAll('.difficulty-button');
-
-startButton.addEventListener('click', () => {
+    startButton.addEventListener('click', () => {
     difficultyMenu.classList.remove('hidden');
 });
 
@@ -49,7 +38,6 @@ difficultyButtons.forEach(button => {
 function startGame(difficulty) {
     window.location.href = "2.html";
 }
-
     </script>
 </body>
 </html>
