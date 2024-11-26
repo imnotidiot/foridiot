@@ -5,54 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tower Defense Game</title>
     <link rel="stylesheet" href="CssOfPage.css">
+    <style>
+        /* 숨김 처리를 위한 클래스 */
+        .hidden {
+            display: none;
+        }
+
+        .title-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .difficulty-container {
+            margin-top: 20px;
+        }
+
+        .difficulty-button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="title-container">
         <h1 class="game-title">TOWER DEFENSE</h1>
         <div class="start-game-container">
-            <button class="start-button" onclick="showDifficulty()">Start Game</button>
+            <button class="start-button" id="startButton">Start Game</button>
         </div>
-        <div class="difficulty-container" id="difficulty-container">
+        <div class="difficulty-container hidden" id="difficultyMenu">
             <h2>Select Difficulty</h2>
-            <button class="difficulty-button" onclick="startGame('easy')">Easy</button>
-            <button class="difficulty-button" onclick="startGame('normal')">Normal</button>
-            <button class="difficulty-button" onclick="startGame('hard')">Hard</button>
+            <button class="difficulty-button" data-difficulty="easy">Easy</button>
+            <button class="difficulty-button" data-difficulty="normal">Normal</button>
+            <button class="difficulty-button" data-difficulty="hard">Hard</button>
         </div>
     </div>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const startButton = document.getElementById('startButton');
-    const difficultyMenu = document.getElementById('difficultyMenu');
-    const difficultyButtons = document.querySelectorAll('.difficulty-button');
-
-    if (startButton) {
-        startButton.addEventListener('click', () => {
-            if (difficultyMenu) {
-                difficultyMenu.classList.remove('hidden');
-            } else {
-                console.error("difficultyMenu 요소를 찾을 수 없습니다.");
-            }
-        });
-    } else {
-        console.error("startButton 요소를 찾을 수 없습니다.");
-    }
-
-    if (difficultyButtons.length > 0) {
-        difficultyButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const selectedDifficulty = event.target.getAttribute('data-difficulty');
-                startGame(selectedDifficulty);
-            });
-        });
-    } else {
-        console.error("difficulty-button 클래스를 가진 요소가 없습니다.");
-    }
-
-    function startGame(difficulty) {
-        window.location.href = "d.html";
-    }
-});
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
-
