@@ -20,25 +20,39 @@
         </div>
     </div>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('startButton');
     const difficultyMenu = document.getElementById('difficultyMenu');
     const difficultyButtons = document.querySelectorAll('.difficulty-button');
 
-    startButton.addEventListener('click', () => {
-    difficultyMenu.classList.remove('hidden');
-});
+    if (startButton) {
+        startButton.addEventListener('click', () => {
+            if (difficultyMenu) {
+                difficultyMenu.classList.remove('hidden');
+            } else {
+                console.error("difficultyMenu 요소를 찾을 수 없습니다.");
+            }
+        });
+    } else {
+        console.error("startButton 요소를 찾을 수 없습니다.");
+    }
 
-difficultyButtons.forEach(button => {
-    button.addEventListener('click', (event) => {
-        const selectedDifficulty = event.target.getAttribute('data-difficulty');
-        startGame(selectedDifficulty);
-    });
-});
+    if (difficultyButtons.length > 0) {
+        difficultyButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const selectedDifficulty = event.target.getAttribute('data-difficulty');
+                startGame(selectedDifficulty);
+            });
+        });
+    } else {
+        console.error("difficulty-button 클래스를 가진 요소가 없습니다.");
+    }
 
-function startGame(difficulty) {
-    window.location.href = "2.html";
-}
-    </script>
+    function startGame(difficulty) {
+        window.location.href = "d.html";
+    }
+});
+</script>
 </body>
 </html>
 
