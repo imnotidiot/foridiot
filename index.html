@@ -7,6 +7,24 @@
     <link rel="stylesheet" href="CssOfPage.css">
 </head>
 <body>
+    <style>
+    .difficulty-menu {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.7);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 20px 40px;
+        text-align: center;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        animation: fadeIn 0.5s ease;
+}
+    </style>
     <div class="title-container">
         <h1 class="game-title">TOWER DEFENSE</h1>
         <div class="start-game-container">
@@ -19,6 +37,20 @@
             <button class="difficulty-button" onclick="startGame('hard')">Hard</button>
         </div>
     </div>
+
+    <div class="background-animation"></div>
+
+    <div class="difficulty-container">
+        <h1 class="game-title">Choose Difficulty</h1>
+        <button id="startButton">Start Game</button>
+        <div class="difficulty-menu">
+            <button class="difficulty-button easy" onclick="startWithDifficulty('easy')">Easy</button>
+            <button class="diffic
+            ulty-button normal" onclick="startWithDifficulty('normal')">Normal</button>
+            <button class="difficulty-button hard" onclick="startWithDifficulty('hard')">Hard</button>
+        </div>
+    </div>
+    
     <script>
         function showDifficulty() {
             document.querySelector('.start-game-container').style.display = 'none';
