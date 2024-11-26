@@ -7,6 +7,30 @@
     <link rel="stylesheet" href="CssOfPage.css">
 </head>
 <body>
+    <style>
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #000000, #78797a, #000000, #363636);
+            background-size: 400% 400%;
+            animation: gradientMove 6s ease infinite;
+            z-index: -1;
+        }
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
     <div class="title-container">
         <h1 class="game-title">TOWER DEFENSE</h1>
         <div class="start-game-container">
@@ -21,7 +45,7 @@
     </div>
 
     <div class="background-animation"></div>
-
+    
     <div class="difficulty-container">
         <h1 class="game-title">Choose Difficulty</h1>
         <button id="startButton">Start Game</button>
