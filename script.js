@@ -32,6 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function startGame(difficulty) {
         console.log(`난이도 '${difficulty}' 선택됨. 게임을 시작합니다.`);
         // 선택한 난이도와 함께 새로운 페이지로 이동
-        window.location.href = `game.html?difficulty=${difficulty}`;
+        window.location.href = "2.html";
     }
 });
