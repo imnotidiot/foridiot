@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tower Defense Game</title>
     <style>
-        /* Existing styles */
         #nextWaveButton {
             position: fixed;
             top: 100px;
@@ -17,6 +16,10 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+        }
+        #nextWaveButton:disabled {
+            background-color: #888;
+            cursor: not-allowed;
         }
         body, html {
             margin: 0;
@@ -93,11 +96,10 @@
     </style>
 </head>
 <body>
-
     <canvas id="gameCanvas"></canvas>
     <button id="menuButton" onclick="toggleMenu()">Menu</button>
     <button id="speedButton" onclick="toggleSpeed()">2배속</button>
-    <button id="nextWaveButton" onclick="nextWave()">Next Wave</button> <!-- New button -->
+    <button id="nextWaveButton" disabled>Next Wave</button>
     <div id="menuUI">
         <h2>Upgrade & Shop</h2>
         <button id="basicTurret" class="button" onclick="buyTurret('basic')">Buy Basic Turret (500)</button>
@@ -106,9 +108,7 @@
         <button class="button" onclick="closeMenu()">Close</button>
     </div>
     <div id="message"></div>
-
     <script>
-        // Existing JavaScript code...
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth;
@@ -116,8 +116,8 @@
 
         let score = 0;
         let money = 1000;
-        let wave = 1;
-        let enemies = [];
+        let enemies = []; // 몬스터 배열
+        let wave = 0; // 현재 웨이브 번호
         let towerHealth = 100;
         let gameInterval;
         let tower = {
@@ -126,6 +126,8 @@
             size: 50,            // Size of the tower
             health: 100,         // Initial health of the tower
         };
+
+        const nextWaveButton = document.getElementById('nextWaveButton');
 
         const turretCost = { basic: 500, laser: 5000 };
         const upgradeCost = { tower: 1000 };
@@ -202,9 +204,10 @@
             ctx.fillText(`Tower Health: ${towerHealth}`, 20, 60);
         }
 
+        // 웨이브 시작 함수
         function startWave() {
-            wave++;
             spawnEnemies();
+            nextWaveButton.disabled = true; // 버튼 비활성화
         }
 
         function spawnEnemies() {
@@ -228,6 +231,19 @@
             }
         }
 
+        // 웨이브 종료 확인 함수
+        function checkWaveEnd() {
+            if (enemies.length === 0) {
+                nextWaveButton.disabled = false; // 버튼 활성화
+            }
+        }
+
+        // 다음 웨이브로 이동
+        nextWaveButton.addEventListener('click', () => {
+            wave++;
+            startWave();
+        });
+
         function createEnemy(health, reward, isBoss = false) {
             const y = Math.random() * canvas.height;
             const speed = baseEnemySpeed + wave * 0.05;
@@ -243,30 +259,18 @@
                 targetY: tower.y
             };
         }
-        function nextWave() {
-            if (enemies.length === 0) {  // Ensure no enemies are left
-                startWave();  // Start the next wave
-            } else {
-                showMessage("Clear all enemies before starting the next wave.");
-            }
-        }
-
-        let isWaveComplete = false; // 웨이브 완료 여부 추적 변수
 
         function updateNextWaveButton() {
             const nextWaveButton = document.getElementById("nextWaveButton");
 
-            // 웨이브가 끝났고, 적들이 없으면 버튼을 보이게 하고 활성화
-            if (enemies.length === 0 && isWaveComplete) {
-                nextWaveButton.style.display = 'block';  // 버튼 보이기
-                nextWaveButton.disabled = false;         // 버튼 활성화
+            if (enemies.length === 0) {
+                nextWaveButton.style.display = 'block';
+                nextWaveButton.disabled = false;
             } else {
-                nextWaveButton.style.display = 'none';   // 버튼 숨기기
-                nextWaveButton.disabled = true;          // 버튼 비활성화
+                nextWaveButton.style.display = 'none';
+                nextWaveButton.disabled = true;
             }
         }
-
-
 
         function updateGame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -363,11 +367,6 @@
             if (towerHealth <= 0) {
                 clearInterval(gameInterval);
                 showMessage("Game Over!");
-            }
-
-            // 웨이브 방식
-            if (enemies.length === 0) {
-                startWave();
             }
         }
 
